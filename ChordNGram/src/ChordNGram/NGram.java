@@ -9,7 +9,8 @@ public class NGram implements Serializable {
 	public String genre;
 	public Map<BiGram, Integer> ngramTable = new HashMap<BiGram, Integer>();
 	public Map<String, Integer> contextTable = new HashMap<String, Integer>();
-
+	public int count;
+	
 	/**
 	 * 
 	 */
@@ -26,4 +27,19 @@ public class NGram implements Serializable {
 	public void parseContexts() {
 		
 	}
+	
+	public double getBiGramLikelihood(BiGram toGet)
+	{
+		Integer biGramCount = this.ngramTable.get(toGet);
+		int newCount = this.count;
+		/* Laplace Add One  -- Should be replaced with backing off soon */
+		if(biGramCount == 0)
+		{
+			biGramCount++;
+			newCount += ngramTable.size();
+		}
+		return (double)biGramCount/(double)newCount;
+	}
+	
+	
 }
