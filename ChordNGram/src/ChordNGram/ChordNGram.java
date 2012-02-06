@@ -3,13 +3,8 @@ package ChordNGram;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ChordNGram {
-
-
-	private static Pattern chord = Pattern.compile("[VIvi]+((M7)|(m7)|(sus))?");
 	
 	public static void main(String[] args) {
 		BufferedReader reader;
@@ -28,11 +23,6 @@ public class ChordNGram {
 					break;
 				}
 				
-				Matcher matcher = chord.matcher(chordProg);
-				
-				while (matcher.find()) {
-					System.out.println("I found the chord: " + matcher.group());
-				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
