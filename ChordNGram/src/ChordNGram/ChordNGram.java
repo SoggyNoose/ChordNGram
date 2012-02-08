@@ -73,7 +73,7 @@ public class ChordNGram {
 				return null;
 			}
 			
-			return bigrams.get(opt);
+			return bigrams.get(opt-1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -112,7 +112,7 @@ public class ChordNGram {
 		}
 		
 		for (String genre : scores.keySet()) {
-			System.out.println("Probability of being " + genre + " is " + Double.toString((scores.get(genre)/accu)) + "%");
+			System.out.println("Probability of being " + genre + " is " + Double.toString((scores.get(genre)/accu)*100) + "%");
 		}
 	}
 	
