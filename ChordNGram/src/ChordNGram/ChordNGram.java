@@ -1,22 +1,118 @@
 package ChordNGram;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ChordNGram {
 
 	private static String[] genres = { "Indie", "Folk", "Pop", "Alternative", "Metal", "Classic", "Punk", "Progressive" };
+	private static List<NGram> bigrams = new ArrayList<NGram>();
 	
-	public static void loadNGrams(String fname) {
-		// TODO
+	public static void loadNGrams() {
+		FileInputStream fis;
+		ObjectInputStream in;
+		NGram ngram = null;
+		
+		for (String genre : genres) {
+			try {
+				fis = new FileInputStream(genre);
+				in = new ObjectInputStream(fis);
+				ngram = (NGram)in.readObject();
+				in.close();
+			} catch (IOException e) {
+				System.out.println("Could not open file for genre " + genre + ", starting new ngram");
+				ngram = new NGram(genre);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			bigrams.add(ngram);
+		}
+	}
+	
+	public static void saveNGrams() {
+		FileOutputStream fos;
+		ObjectOutputStream out;
+		
+		for (NGram ngram : bigrams) {
+			try {
+				
+				fos = new FileOutputStream(ngram.genre);
+				out = new ObjectOutputStream(fos);
+				out.writeObject(ngram);
+				out.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static NGram getModel(BufferedReader reader) {
+		for (int i=0; i<genres.length; i++) {
+			System.out.println((i+1) + ". " + genres[i]);
+		}
+		
 		try {
-			BufferedReader file = new BufferedReader(new FileReader(fname));
+			String select = reader.readLine();
 			
+			int opt = Integer.parseInt(select);
 			
+			if (opt>bigrams.size()) {
+				System.out.println("Now look at what you've done. It's ruined");
+				return null;
+			}
+			
+			return bigrams.get(opt);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static void readFile(String fname, NGram model) {
+		FileReader fis;
+		BufferedReader reader;
+		
+		try {
+			fis = new FileReader(fname);
+			reader = new BufferedReader(fis);
+			
+			String line;
+			
+			while((line = reader.readLine()) != null) {
+				model.addProgression(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void scoreProgression(String prog) {
+		Map<String, Double> scores = new TreeMap<String, Double>();
+		
+		for (NGram genre : bigrams) {
+			scores.put(genre.genre, genre.scoreProgression(prog));
+		}
+		
+		double accu = 0.0;
+		for (String genre : scores.keySet()) {
+			accu += scores.get(genre);
+		}
+		
+		for (String genre : scores.keySet()) {
+			System.out.println("Probability of being " + genre + " is " + Double.toString((scores.get(genre)/accu)) + "%");
 		}
 	}
 	
@@ -27,9 +123,11 @@ public class ChordNGram {
 		
 		String option;
 		String fname;
-		String genre;
+		NGram genre;
 		String chordProg;
 		boolean running = true;
+		
+		loadNGrams();
 		
 		while (running) {
 			System.out.println("Choose option: ");
@@ -43,20 +141,19 @@ public class ChordNGram {
 				if (option.equals("1")) {
 					System.out.print("Please enter filename: ");
 					fname = reader.readLine();
-					// TODO Open the file and such
-					System.out.print("What genre is this song?");
-					genre = reader.readLine();
-					// Retrieve appropriate NGram model
-					// whatever.addProgression(something)
+					System.out.println("What genre is this song?");
+					genre = getModel(reader);
+					if (genre == null) continue;
+					readFile(fname, genre);
 				}
 				if (option.equals("2")) {
 					System.out.print("Please enter progression: ");
 					chordProg = reader.readLine();
 					// TODO score and such
+					scoreProgression(chordProg);
 				}
 				if (option.equals("3")) {
-					System.out.println("Bye");
-					// TODO closing and such
+					reader.close();
 					running = false;
 				}
 				
@@ -64,5 +161,8 @@ public class ChordNGram {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Bye");
+		saveNGrams();
 	}
 }

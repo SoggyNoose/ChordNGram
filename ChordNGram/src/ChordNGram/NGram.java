@@ -24,7 +24,7 @@ public class NGram implements Serializable {
 		this.genre = genre;
 	}
 	
-	public void scoreProgression(final String chordProg) {
+	public double scoreProgression(final String chordProg) {
 		List<String> chords = parseChords(chordProg);
 		
 		// Create list of BiGrams
@@ -42,6 +42,8 @@ public class NGram implements Serializable {
 		for (BiGram bigram : sequence) {
 			score *= getBiGramLikelihood(bigram);
 		}
+		
+		return score;
 	}
 	
 	public void addProgression(final String chordProg) {
