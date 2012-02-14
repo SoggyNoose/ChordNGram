@@ -1,0 +1,16 @@
+vi, Vsus, IV, Vsus, I, Vsus, vi, IV, Vsus, IV, Vsus, vi, Vsus
+I, V, IV, I, V, IV, I, V, IV
+IVM7, I, Isus, IVM7, I, Isus, I IVM7, I, I, IVM7, I, Isus, vi,  IVM7, I, IVM7, I, Isus, vi,  IVM7, I, iii, IVM7, I, IVM7, I, iii, IVM7, I, V
+i, VIM7, III, ivsus, i, VIM7, III, ivsus, i, VIM7, III, ivsus
+I, iii, vi, VI, IM7, IV, I, iii, vi, iiisus, iii, vim7, II, IV, V, IV, V, IV, V, IV, V, I, IV, vi, IV, I, IV, ii, I, IV, V, I, IV, vi, IV, iv, I, ii, Vsus, V, VI, III, VI, III, ii, vm7, ii, vm7
+vi, I, IV, I, V, vi, I, V, vi, I, III, vi, V, IV, iv, I
+I, Isus, I, IM7, I, vi, visus, vi, visus, vi, iii, iiim7, VIsus
+V, IV, I, V, IV, I, V, II, IV, vi, V, II, IV, I, V, IV, II, I, V, IV, I, IV, V, IV, I, IV
+I, IV, V, IV, I, I, IV, V, IV, I, I, IV, I, I, IV, I, IV, IVsus, I, IV, IVsus, IV, I
+I, IV, I, V, I, IV, II, IV, I, I, IV, I, V, I, IV, II, IV, I
+I, IV, I, IV, ii, V, ii, IV, ii, V, I, I, IV, I, IV, ii, V, ii, IV, ii, V, I, IV, I, IV, V, ii, IV, vi, ii, I, IV, ii, IV, ii, IV, V, I
+I , vi, V, vi, IV, I, I, vi, V, vi, VI, IV, IV, vi, V, IV, vi, V, IV, vi, I, V, vi, IV, V, I
+III, iv, i, i, III, iv, i, i, III, iv, i, i, VI, I, VII, VII, VI, I , VII, VII, III, III, iv, iv, VII, VII, i, i, III, iv, i, i
+IV, I, V, IV, I, V, IV, I, V, IV, V, IV, V, V, IV, I, V, IV, I, V
+I, iii, vi, IV, V, I, iii, vi, IV, V, vi, vim7, vi, IV, I, vi, vim7, vi, IV, I, IIm7, IV, IV, I, IIm7, IV
+
