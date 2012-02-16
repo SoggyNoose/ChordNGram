@@ -63,11 +63,19 @@ Because this is such a powerful tool for describing a song, we hypothesize that 
   
 \newpage
 
-\section{n-grams}
+\section{N-grams}
 
 \newpage
 
 \section{Program Design}
+The program has three major components:  A seralizeable n-gram class, a main controller class, and a bi-gram class.  It imports data from a text file for usage in the bigrams/
+\subsection{The Bi-gram}
+The bi-gram class is a simple container class that holds two strings, each representing a different chord symbol with a quality.
+\subsection{The N-gram}
+The n-gram class is a container class with logic for importing additional data into the set.  It holds a Map of integers, keyed to bi-grams.  When data is imported, it is imported as a series of chord symbols parsed from a file via regular expressions.  Bi-grams are generated from this string, counted, and added to the map.  When the program closes, each N-gram object is serialized and saved to a file, where it is reopened and loaded at the next start of the program.\\
+This class also contains the logic for finding the probability of a given series of chord symbols.  Missing symbols are handled via Laplace Add One.
+\subsection{The Controller}
+The controller handles the various user-interactions the program requires.  It provides logic and options for direction of inputs for data import, an interface for determining the genera of a song, and options for resetting the program's data.
 
 \newpage
 
