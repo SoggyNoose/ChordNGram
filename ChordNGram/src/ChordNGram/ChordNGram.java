@@ -15,7 +15,7 @@ import java.util.TreeMap;
 
 public class ChordNGram {
 
-	private static String[] genres = { "Indie", "Alternative", "Classic" };
+	private static String[] genres = { "Indie", "Classic" };
 	private static List<NGram> bigrams = new ArrayList<NGram>();
 	
 	public static void loadNGrams() {

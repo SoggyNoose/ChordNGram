@@ -1,6 +1,14 @@
 package ChordNGram;
 
-public class BiGram {
+import java.io.Serializable;
+
+public class BiGram implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7656518871438982739L;
+	
+	
 	public String chord1;
 	public String chord2;
 	
