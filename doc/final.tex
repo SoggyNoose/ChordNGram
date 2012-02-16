@@ -3,6 +3,7 @@
 \usepackage{setspace, fancyhdr}
 \usepackage{mdwlist}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \pagestyle{fancy}
 
 \setlength{\headheight}{15.2pt}
@@ -42,7 +43,7 @@ is assumed to be at least a triad (it contains three or more notes).
 	\subsection{Chord Construction}
 	
 		\subsubsection{Majors and Minors}
-		All chords considered by this project fall into two groups:  Major 
+		All chords considered by this project fall into two groups:  major 
 		and minor chords.  A major chord is built from the root and adding 
 		the note that is four half-steps up (this is the \emph{third} of the 
 		chord) and the note that is seven half-steps up (this is the \emph{fifth}) 
@@ -108,12 +109,83 @@ is assumed to be at least a triad (it contains three or more notes).
 
 \section{N-grams}
 
+In the field of probability, an \emph{n-gram} is a sequence of $n$ terms. These can be
+words, syllables, numbers, or abstract symbols. An \emph{n-gram model} is a method
+for predicting the next item in a sequence as a \emph{(n-1)-order Markov model}. 
+
+For our system, the symbols are the chords. We are also not aiming to predict the
+next chord in a sequence (although that would make for an interesting concept in
+itself). Instead, we aim to find the probability for a given sequence to occur, given
+a particular genre. We can do this by providing training data for the model to reference.
+
+As for the actual model, we decided that the best way to represent the problem is
+that each genre would be its own model. Then given a sequence and training data,
+we could score that sequence for each model and compare results. 
+
+For a particular model, we build a table of \emph{bigrams} or 2-gram -- that is, we group
+a sequence into pairs. Chord progressions are commonly in groups of four, so it 
+seems intuitive to group them by fours. However,
+given the number of chord and quality combinations, it was impractical to gather
+enough data during the time of the project. Therefore, we chose bigrams for
+simplicity. In addition to the bigram, each n-gram has a \emph{context}, which
+is simply defined to be the first $n-1$ symbols in the sequence.
+
+An example of the table is shown in Figures \ref{tab:bigram} and \ref{tab:context}.
+
+	\begin{figure}[h]
+
+	\begin{center}
+		\begin{tabular}{l | l | l | l | l | l | l | l}
+•		bigram &	I-I 	& I-i	& I-II	& ...	& VM7-isus	& VM7-II	& ... \\ \hline
+		counts & 17	& 0	& 7	& ...	& 2			& 1		& ... \\
+		\end{tabular}•
+	\end{center}
+	\caption{The bigram table (numbers are not representative of actual data)}
+	\label{tab:bigram}
+
+	
+	\begin{center}
+		\begin{tabular}{l|l|l|l|l|l|l|l}
+•		context	&	I 	&	II	&	III	&	...	&	vi	&	vii	&	...	\\[0.3em] \hline
+		counts	&	78	&	97	&	103	&	...	&	43	&	29	&	...	\\
+		\end{tabular}•
+	\end{center}•
+	\caption{The table of contexts (numbers are not representative of actual data)}
+	\label{tab:context}
+	\end{figure}•
+
+To find the probability of a bigram occuring, we can simply take
+
+	\[
+	P(bigram) = \frac{\text{count of the bigram}}{\text{count of the context}}
+	\]
+
+To score a sequence such as \emph{I - V - IV - I - V - IV - I - V - IV}, we can calculate
+
+	\[
+	P(sequence) = P(I - V - IV) * P(V - IV - I) * P(IV - I - V) * P(I - V - IV) * ...
+	\]
+
+Problems can arise in the case that the count of the context never occured
+in the training data,
+as we will divide by zero. However, if the context hasn't been seen, then
+trivially the bigram hasn't either. So we treat the pair as if we trained the
+model with just the bigram. Therefore, the counts of both are simply 1.
+
+Further problems arise when a bigram hasn't been encountered, yet the 
+context has. This will cause the probably to become 0, and likewise the
+score of the entire sequence. To solve this, we implement a technique 
+known as \emph{LaPlace Add One} technique. It is rather simple -- we add
+1 to the count of every other bigram in the table. With enough data, this
+adds an insignificant amount to the scores of every other bigram,
+while avoiding a result of 0.
+
 \newpage
 
 \section{Program Design}
 The program has three major components:  A seralizeable n-gram class,
 a main controller class, and a bi-gram class.  It imports data from a text 
-file for usage in the bigrams/
+file for usage in the bigrams % Incomplete?
 
 	\subsection{The Bi-gram}
 	The bi-gram class is a simple container class that holds two strings, each 
