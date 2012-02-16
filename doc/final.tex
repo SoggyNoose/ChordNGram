@@ -17,7 +17,7 @@
 
 \begin{titlepage}
 \begin{center}
-{\huge Genera Classification by Chord Progression}\\[2cm]
+{\huge Genre Classification by Chord Progression}\\[2cm]
 {\Large Final Report}\\[2cm]
 {\large \today}\\[2cm]
 \emph{Team Members:}\\
@@ -34,32 +34,75 @@ Samuel \uppercase{Kim}\\
 \newpage
 
 \section{Chord Progressions}
-Western music is based heavily on harmoic relations between notes that fall within major and minor scales. Each of these relations can be defined as a \emph{chord}.  For the purposes of this project, a chord is assumed to be at least a triad (it contains three or more notes).
-\subsection{Chord Construction}
-\subsubsection{Majors and Minors}
-All chords considered by this project fall into two groups:  Major and minor chords.  A major chord is built from the root and adding the note that is four half-steps up (this is the \emph{third} of the chord) and the note that is seven half-steps up (this is the \emph{fifth}) of the chord).\\
-\begin{figure}[htb]
-\includegraphics{cMajorPiano}
-\caption{A  C-Major chord, as shown on a piano}
-\end{figure} \\
-A minor chord is similar to a major chord, except that the \emph{third} is three half steps up from the root, rather than four.
-\subsubsection{Qualities}
-Chords are not simply limited to the three notes that build their basic structure.  Any additional notes that are added to them will give them \emph{qualities}.  To simplify data collection and allow for more meaningful results, this project has only considered the following qualities:
-\begin{itemize}
-	\item Major Seventh:  The base chord has added the note twelve half steps up from the root.\\  \emph{Example:  adding a B to a C chord}
-	\item Minor Seventh:  The base chord has added the note eleven half steps up from the root.\\  \emph{Example:  adding a Bflat to a C chord}
-	\item Suspended:  The base chord has added the note two half steps up or five half steps up from the root. \\  \emph{Example:  Adding a D or F to a C chord}\\\emph{Note:  This is a blanket definition for the 4, 2, Suspended 4, and Suspended 2 qualities.  This decision was made because they are similar in overall tone and occurence}
-\end{itemize}
-\subsection{Chord Progressions}
-Given these chords, a \emph{chord progression} is the series of chords that make up a given piece of music.  Given the key of a piece of music, one notates the interval of each of the chords from the key's root.  Notation is in roman numerals, with major chords being denoted by capital I and Vs, while minor chords have lower case i's and v's.
-\subsubsection{An Example}
-The song \emph{The Crane Wife Part III} by The Decemberists is a song in the key of D.  The flow of the song's chords is:  D, A, G, D, A, G, D, A, G.  This is notated as:\\
-\begin{center}
-\emph{I - V - IV - I - V - IV - I - V - IV}
-\end{center}
-\subsubsection{Application}
-The chord progression of a song will give a musician an idea of the general tones and harmonies in a specific piece of music, and the order they come in.  With this information and an idea of the melody, it is simply a matter of practice to learn and play a song.\\
-Because this is such a powerful tool for describing a song, we hypothesize that the chord progression of a song can be used to accurately predict a song's genera of music.  Because of the linear nature of a chord progression, it makes it an ideal candidate for n-gram analysis.
+Western music is based heavily on harmoic relations between notes 
+that fall within major and minor scales. Each of these relations can be 
+defined as a \emph{chord}.  For the purposes of this project, a chord 
+is assumed to be at least a triad (it contains three or more notes).
+
+	\subsection{Chord Construction}
+	
+		\subsubsection{Majors and Minors}
+		All chords considered by this project fall into two groups:  Major 
+		and minor chords.  A major chord is built from the root and adding 
+		the note that is four half-steps up (this is the \emph{third} of the 
+		chord) and the note that is seven half-steps up (this is the \emph{fifth}) 
+		of the chord).
+
+		\begin{figure}[htb]
+		%\includegraphics{cMajorPiano}
+		\caption{A  C-Major chord, as shown on a piano}
+		\end{figure} 
+
+		A minor chord is similar to a major chord, except that the \emph{third} 
+		is three half steps up from the root, rather than four.
+
+		\subsubsection{Qualities}
+		Chords are not simply limited to the three notes that build their basic 
+		structure.  Any additional notes that are added to them will give them 
+		\emph{qualities}. To simplify data collection and allow for more meaningful 
+		results, this project has only considered the following qualities:
+
+		\begin{itemize}
+			\item Major Seventh:  The base chord has added the note twelve half 
+				steps up from the root.\\
+				\emph{Example:  adding a B to a C chord}
+			\item Minor Seventh:  The base chord has added the note eleven half 
+				steps up from the root.\\  
+				\emph{Example:  adding a Bflat to a C chord}
+			\item Suspended:  The base chord has added the note two half steps 
+				up or five half steps up from the root. \\  
+				\emph{Example:  Adding a D or F to a C chord}\\
+				\emph{Note:  This is a blanket definition 
+				for the 4, 2, Suspended 4, and Suspended 2 qualities.  This decision 
+				was made because they are similar in overall tone and occurence}
+		\end{itemize}
+
+	\subsection{Chord Progressions}
+	Given these chords, a \emph{chord progression} is the series of chords 
+	that make up a given piece of music.  Given the key of a piece of music, 
+	one notates the interval of each of the chords from the key's root.  
+	Notation is in roman numerals, with major chords being denoted by capital 
+	I and Vs, while minor chords have lower case i's and v's.
+
+		\subsubsection{An Example}
+		The song \emph{The Crane Wife Part III} by The Decemberists is a song 
+		in the key of D.  The flow of the song's chords is:  D, A, G, D, A, G, D, A, G.  
+		This is notated as:\\
+
+		\begin{center}
+		\emph{I - V - IV - I - V - IV - I - V - IV}
+		\end{center}
+
+		\subsubsection{Application}
+		The chord progression of a song will give a musician an idea of the general 
+		tones and harmonies in a specific piece of music, and the order they 
+		come in.  With this information and an idea of the melody, it is simply 
+		a matter of practice to learn and play a song.
+
+		Because this is such a powerful tool for describing a song, we hypothesize 
+		that the chord progression of a song can be used to accurately predict a 
+		song's genre of music.  Because of the linear nature of a chord progression, 
+		it makes it an ideal candidate for n-gram analysis.
   
 \newpage
 
@@ -68,14 +111,32 @@ Because this is such a powerful tool for describing a song, we hypothesize that 
 \newpage
 
 \section{Program Design}
-The program has three major components:  A seralizeable n-gram class, a main controller class, and a bi-gram class.  It imports data from a text file for usage in the bigrams/
-\subsection{The Bi-gram}
-The bi-gram class is a simple container class that holds two strings, each representing a different chord symbol with a quality.
-\subsection{The N-gram}
-The n-gram class is a container class with logic for importing additional data into the set.  It holds a Map of integers, keyed to bi-grams.  When data is imported, it is imported as a series of chord symbols parsed from a file via regular expressions.  Bi-grams are generated from this string, counted, and added to the map.  When the program closes, each N-gram object is serialized and saved to a file, where it is reopened and loaded at the next start of the program.\\
-This class also contains the logic for finding the probability of a given series of chord symbols.  Missing symbols are handled via Laplace Add One.
-\subsection{The Controller}
-The controller handles the various user-interactions the program requires.  It provides logic and options for direction of inputs for data import, an interface for determining the genera of a song, and options for resetting the program's data.
+The program has three major components:  A seralizeable n-gram class,
+a main controller class, and a bi-gram class.  It imports data from a text 
+file for usage in the bigrams/
+
+	\subsection{The Bi-gram}
+	The bi-gram class is a simple container class that holds two strings, each 
+	representing a different chord symbol with a quality.
+
+
+		\subsection{The N-gram}
+		The n-gram class is a container class with logic for importing additional 
+		data into the set.  It holds a Map of integers, keyed to bi-grams.  When 
+		data is imported, it is imported as a series of chord symbols parsed 
+		from a file via regular expressions.  Bi-grams are generated from this 
+		string, counted, and added to the map.  When the program closes, each 
+		N-gram object is serialized and saved to a file, where it is reopened and 
+		loaded at the next start of the program.
+
+		This class also contains the logic for finding the probability of a given 
+		series of chord symbols.  Missing symbols are handled via Laplace Add One.
+
+	\subsection{The Controller}
+	The controller handles the various user-interactions the program requires.  
+	It provides logic and options for direction of inputs for data import, an 
+	interface for determining the genre of a song, and options for resetting 
+	the program's data.
 
 \newpage
 
