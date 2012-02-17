@@ -1,4 +1,4 @@
-\documentclass{article}
+﻿\documentclass{article}
 \usepackage[paperheight=11in,paperwidth=8.5in,margin=1in]{geometry}
 \usepackage{setspace, fancyhdr}
 \usepackage{mdwlist}
@@ -214,8 +214,55 @@ file for usage in the bigrams % Incomplete?
 
 \section{Results}
 
+The system was trained by entering in a variety of different progressions,
+and determining the results. The outputs are as follows:
+
+\begin{itemize}
+\item \emph{I - IV - V - V} This is a very common progression often
+	found in classic rock. The model seems to agree. \\
+	\emph{Probability of being Classic is 97.52114319043453%} \\
+	\emph{Probability of being Indie is 2.4788568095654715%} \\
+\item \emph{vi - Vsus - IV - Vsus - I - Vsus}. This was an excerpt
+	from a progression for the Indie progression set. \\
+	\emph{Probability of being Classic is 99.04968775454792%} \\
+	\emph{Probability of being Indie is 0.9503122454520773%} \\
+	The result can be attributed to the fact that many of the
+	chord transitions were never seen in classic rock (as
+	sus chords in general are rare in the genre)
+\item \emph{V - IV - I - V}. Yet another excerpt from an Indie
+	song.
+	\emph{Probability of being Classic is 11.863083955847921% \\
+	Probability of being Indie is 88.13691604415207%} \\
+\item \emph{I - V - vii - vii}. This is a progression that is
+	neither Classic nor Indie rock, but is rather Alternative
+	rock.
+	\emph{Probability of being Classic is 64.02569593147753% \\
+	Probability of being Indie is 35.974304068522486%}
+\item \emph{vi - I - III - IV - V}. Taken from a bluegrass track. \\
+	\emph{Probability of being Classic is 86.02684395679195% \\
+	Probability of being Indie is 13.973156043208046%}
+\item \emph{i - III - VII - IV}. Taken from an Indie song not
+	included in the training set. \\
+	\emph{Probability of being Classic is 60.796139927623635% \\
+	Probability of being Indie is 39.20386007237636%}
+\item \emph{vi - I - IV - I}. Taken from a classic rock song
+	not included in the training set. \\
+	\emph{Probability of being Classic is 64.47975397232189% \\
+	Probability of being Indie is 35.52024602767811%}
+
 \newpage
 
 \section{Conclusion}
+
+% Results generally show classic rock beating out Indie. This is
+% primarily due to the fact that Indie rock artists use chords
+% and chord transitions typically not seen in Classic rock.
+% This causes the Laplace Add One to greatly favor Classic rock.
+% Can be alleviated by using absolute discounting, getting more
+% data, using some sort of composite scoring (i.e. introducing
+% other factors, etc.)
+
+% We should also mention something about challenges faced,
+% flaws with the system, possible future features, etc.
 
 \end{document}
