@@ -1,4 +1,4 @@
-﻿\documentclass{article}
+\documentclass{article}
 \usepackage[paperheight=11in,paperwidth=8.5in,margin=1in]{geometry}
 \usepackage{setspace, fancyhdr}
 \usepackage{mdwlist}
@@ -31,7 +31,7 @@ Samuel \uppercase{Kim}\\
 \newpage
 
 \section{Introduction}
-A possible application of Hidden Markov Modelling is music classification.  
+Music, while certainly containing almost infinite variation, can be accurately described with a number of systems.  One such system is \emph{chord progression}, which provides an overview of a song's harmonic patterns.  Using chord progressions, we have attempted to create a method of musical genera classification by recognizing patterns in progressions and evaluating them with a series of n-grams.
 
 \newpage
 
@@ -51,7 +51,7 @@ is assumed to be at least a triad (it contains three or more notes).
 		of the chord).
 
 		\begin{figure}[htb]
-		%\includegraphics{cMajorPiano}
+		\includegraphics{cMajorPiano}
 		\caption{A  C-Major chord, as shown on a piano}
 		\end{figure} 
 
@@ -185,8 +185,9 @@ while avoiding a result of 0.
 
 \section{Program Design}
 The program has three major components:  A seralizeable n-gram class,
-a main controller class, and a bi-gram class.  It imports data from a text 
-file for usage in the bigrams % Incomplete?
+a main controller class, and a bi-gram class.  The main user interface is 
+a command prompt which will provide the user with a variety of options,
+including data import, data reset, and testing of a user-entered progression.
 
 	\subsection{The Bi-gram}
 	The bi-gram class is a simple container class that holds two strings, each 
@@ -215,45 +216,79 @@ file for usage in the bigrams % Incomplete?
 
 \section{Results}
 
-The system was trained by entering in a variety of different progressions,
-and determining the results. The outputs are as follows:
+At the time of testing, the system had been trained with models for two generas, Indie and Classic Rock.
+The training sets were both of fifteen songs, respectively.
+
+ The outputs are as follows:
 
 \begin{itemize}
 \item \emph{I - IV - V - V} This is a very common progression often
 	found in classic rock. The model seems to agree. \\
-	\emph{Probability of being Classic is 97.52114319043453%} \\
-	\emph{Probability of being Indie is 2.4788568095654715%} \\
+	\emph{Probability of being Classic is 97.52114319043453\%} \\
+	\emph{Probability of being Indie is 2.4788568095654715\%} \\
 \item \emph{vi - Vsus - IV - Vsus - I - Vsus}. This was an excerpt
 	from a progression for the Indie progression set. \\
-	\emph{Probability of being Classic is 99.04968775454792%} \\
-	\emph{Probability of being Indie is 0.9503122454520773%} \\
+	\emph{Probability of being Classic is 0.9503122454520773\%} \\
+	\emph{Probability of being Indie is 99.04968775454792\%} \\
 	The result can be attributed to the fact that many of the
 	chord transitions were never seen in classic rock (as
-	sus chords in general are rare in the genre)
+	sus chords in general are rare in the genre) \\
 \item \emph{V - IV - I - V}. Yet another excerpt from an Indie
-	song.
-	\emph{Probability of being Classic is 11.863083955847921% \\
-	Probability of being Indie is 88.13691604415207%} \\
+	song. \\
+	\emph{Probability of being Classic is 11.863083955847921\%} \\
+	\emph{Probability of being Indie is 88.13691604415207\%} \\
 \item \emph{I - V - vii - vii}. This is a progression that is
 	neither Classic nor Indie rock, but is rather Alternative
-	rock.
-	\emph{Probability of being Classic is 64.02569593147753% \\
-	Probability of being Indie is 35.974304068522486%}
+	rock. \\
+	\emph{Probability of being Classic is 64.02569593147753\%} \\
+	\emph{Probability of being Indie is 35.974304068522486\%}
 \item \emph{vi - I - III - IV - V}. Taken from a bluegrass track. \\
-	\emph{Probability of being Classic is 86.02684395679195% \\
-	Probability of being Indie is 13.973156043208046%}
+	\emph{Probability of being Classic is 86.02684395679195\%} \\
+	\emph{Probability of being Indie is 13.973156043208046\%}
 \item \emph{i - III - VII - IV}. Taken from an Indie song not
 	included in the training set. \\
-	\emph{Probability of being Classic is 60.796139927623635% \\
-	Probability of being Indie is 39.20386007237636%}
+	\emph{Probability of being Classic is 60.796139927623635\%} \\
+	\emph{Probability of being Indie is 39.20386007237636\%}
 \item \emph{vi - I - IV - I}. Taken from a classic rock song
 	not included in the training set. \\
-	\emph{Probability of being Classic is 64.47975397232189% \\
-	Probability of being Indie is 35.52024602767811%}
-
+	\emph{Probability of being Classic is 64.47975397232189\%} \\
+	\emph{Probability of being Indie is 35.52024602767811\%}
+\end{itemize}
 \newpage
 
 \section{Conclusion}
+
+\subsection{Analysis of Results}
+In general, the results show classic rock songs beating out indie, even in cases where it seems it shouldn't.  This is a result two major of factors:
+\begin{itemize}
+	\item Indie artists generally use more chords with qualities than Classic artists.  This causes Indie's model to be much more distributed, causing a larger impact from the Laplace Add One rule.
+	\item The datasets were not particularly large.
+\end {itemize}
+
+Possible fixes include:
+\begin{itemize}
+	\item Changing from Laplace Add One to Absolute Discounting.  This should alleviate many of the distribution problems caused by Indie's much broader chord selection.
+	\item Using a more composite scoring method:  For example, including key and time signature in the scoring.  This will give a more complete picture of the song for analysis.
+	\item Getting more data -- always welcome.
+\end{itemize}
+
+\subsection{Challenges in Implementation}
+\begin{itemize}
+	\item What is the appropriate number of qualities to track?  Is it necessary to track the differences between a I, I5, I/5, and I6?  How often will these qualities occur?  Will a dataset that we can be reasonably expected to build in the alloted time contain these qualities enough to not cause a single occurence of the quality to skew a sing heavily in favor of one genera or another? 
+	\item How does one accurately represent a progression?  By measures the chord occurs throughout the song, by simple transitions as they occur, or by section occurence?
+	\item Are there any other metrics that have a large enough factor on a song's composition that are worth tracking?
+	\item What is the best way of representing a progression electronically?
+\end{itemize}
+These questions are all open to significant debate.  We chose to answer them as we saw fit, and are pleased with the results of our choices.
+
+\subsection{Possible Future Features}
+\begin{itemize}
+	\item Inclusion of composite metrics, such as time signature and key signature
+	\item A graphical user interface
+	\item Addition of more chordal qualities for usage in larger datasets
+	\item More data.  
+	\item More generas
+\end{itemize}
 
 % Results generally show classic rock beating out Indie. This is
 % primarily due to the fact that Indie rock artists use chords
