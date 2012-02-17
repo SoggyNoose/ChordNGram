@@ -1,0 +1,46 @@
+IV - V - IVmaj7 - V
+I - IV - I - IV
+ii - V - V - V
+ii - ii - ii - ii
+i - i - i - VImaj7
+i - VII - IV - V
+i - i - i - VImaj7
+i - VII - III - V
+I - Imaj7 - vi - I
+ii - ii - V - V
+vi - II - IV - I
+I - vi - iii - V
+I - vi - iv - V
+vi - II - iv - V - I
+V - V
+I - I - IV - I
+I - VM7 - I - VM7
+I - IV - V - V
+I - IV - I - V
+I - ii - I - ii
+I - IV - V - V
+I - I - IV - I
+I - IV
+VII - VII - I - I
+I - III - IV - III - I
+I - VII - I
+I - I - IV - III - I
+VI - V
+vi - I
+vi - ii - vi - ii - V
+i - III - i - i
+i - i - i - i
+iv - iv - iv - iv
+i - i - III - i
+i - i - iv - iv
+i - VII - VI - i
+VI - VII - i - VII - VI - i
+VII - VII - iv - iv
+I - I - VI - VII
+I - I - VI - VII
+I - I - II - II
+V - V - VI - VII
+I - I - V - V
+VI - IV - VII - VII
+I - VII - IV - I
+I - V - IV - I

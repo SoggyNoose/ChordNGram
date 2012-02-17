@@ -1,8 +1,9 @@
-\documentclass{article}
+﻿\documentclass{article}
 \usepackage[paperheight=11in,paperwidth=8.5in,margin=1in]{geometry}
 \usepackage{setspace, fancyhdr}
 \usepackage{mdwlist}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \pagestyle{fancy}
 
 \setlength{\headheight}{15.2pt}
@@ -17,7 +18,7 @@
 
 \begin{titlepage}
 \begin{center}
-{\huge Genera Classification by Chord Progression}\\[2cm]
+{\huge Genre Classification by Chord Progression}\\[2cm]
 {\Large Final Report}\\[2cm]
 {\large \today}\\[2cm]
 \emph{Team Members:}\\
@@ -35,55 +36,234 @@ A possible application of Hidden Markov Modelling is music classification.
 \newpage
 
 \section{Chord Progressions}
-Western music is based heavily on harmoic relations between notes that fall within major and minor scales. Each of these relations can be defined as a \emph{chord}.  For the purposes of this project, a chord is assumed to be at least a triad (it contains three or more notes).
-\subsection{Chord Construction}
-\subsubsection{Majors and Minors}
-All chords considered by this project fall into two groups:  Major and minor chords.  A major chord is built from the root and adding the note that is four half-steps up (this is the \emph{third} of the chord) and the note that is seven half-steps up (this is the \emph{fifth}) of the chord).\\
-\begin{figure}[htb]
-\includegraphics{cMajorPiano}
-\caption{A  C-Major chord, as shown on a piano}
-\end{figure} \\
-A minor chord is similar to a major chord, except that the \emph{third} is three half steps up from the root, rather than four.
-\subsubsection{Qualities}
-Chords are not simply limited to the three notes that build their basic structure.  Any additional notes that are added to them will give them \emph{qualities}.  To simplify data collection and allow for more meaningful results, this project has only considered the following qualities:
-\begin{itemize}
-	\item Major Seventh:  The base chord has added the note twelve half steps up from the root.\\  \emph{Example:  adding a B to a C chord}
-	\item Minor Seventh:  The base chord has added the note eleven half steps up from the root.\\  \emph{Example:  adding a Bflat to a C chord}
-	\item Suspended:  The base chord has added the note two half steps up or five half steps up from the root. \\  \emph{Example:  Adding a D or F to a C chord}\\\emph{Note:  This is a blanket definition for the 4, 2, Suspended 4, and Suspended 2 qualities.  This decision was made because they are similar in overall tone and occurence}
-\end{itemize}
-\subsection{Chord Progressions}
-Given these chords, a \emph{chord progression} is the series of chords that make up a given piece of music.  Given the key of a piece of music, one notates the interval of each of the chords from the key's root.  Notation is in roman numerals, with major chords being denoted by capital I and Vs, while minor chords have lower case i's and v's.
-\subsubsection{An Example}
-The song \emph{The Crane Wife Part III} by The Decemberists is a song in the key of D.  The flow of the song's chords is:  D, A, G, D, A, G, D, A, G.  This is notated as:\\
-\begin{center}
-\emph{I - V - IV - I - V - IV - I - V - IV}
-\end{center}
-\subsubsection{Application}
-The chord progression of a song will give a musician an idea of the general tones and harmonies in a specific piece of music, and the order they come in.  With this information and an idea of the melody, it is simply a matter of practice to learn and play a song.\\
-Because this is such a powerful tool for describing a song, we hypothesize that the chord progression of a song can be used to accurately predict a song's genera of music.  Because of the linear nature of a chord progression, it makes it an ideal candidate for n-gram analysis.
+Western music is based heavily on harmoic relations between notes 
+that fall within major and minor scales. Each of these relations can be 
+defined as a \emph{chord}.  For the purposes of this project, a chord 
+is assumed to be at least a triad (it contains three or more notes).
+
+	\subsection{Chord Construction}
+	
+		\subsubsection{Majors and Minors}
+		All chords considered by this project fall into two groups:  major 
+		and minor chords.  A major chord is built from the root and adding 
+		the note that is four half-steps up (this is the \emph{third} of the 
+		chord) and the note that is seven half-steps up (this is the \emph{fifth}) 
+		of the chord).
+
+		\begin{figure}[htb]
+		%\includegraphics{cMajorPiano}
+		\caption{A  C-Major chord, as shown on a piano}
+		\end{figure} 
+
+		A minor chord is similar to a major chord, except that the \emph{third} 
+		is three half steps up from the root, rather than four.
+
+		\subsubsection{Qualities}
+		Chords are not simply limited to the three notes that build their basic 
+		structure.  Any additional notes that are added to them will give them 
+		\emph{qualities}. To simplify data collection and allow for more meaningful 
+		results, this project has only considered the following qualities:
+
+		\begin{itemize}
+			\item Major Seventh:  The base chord has added the note twelve half 
+				steps up from the root.\\
+				\emph{Example:  adding a B to a C chord}
+			\item Minor Seventh:  The base chord has added the note eleven half 
+				steps up from the root.\\  
+				\emph{Example:  adding a Bflat to a C chord}
+			\item Suspended:  The base chord has added the note two half steps 
+				up or five half steps up from the root. \\  
+				\emph{Example:  Adding a D or F to a C chord}\\
+				\emph{Note:  This is a blanket definition 
+				for the 4, 2, Suspended 4, and Suspended 2 qualities.  This decision 
+				was made because they are similar in overall tone and occurence}
+		\end{itemize}
+
+	\subsection{Chord Progressions}
+	Given these chords, a \emph{chord progression} is the series of chords 
+	that make up a given piece of music.  Given the key of a piece of music, 
+	one notates the interval of each of the chords from the key's root.  
+	Notation is in roman numerals, with major chords being denoted by capital 
+	I and Vs, while minor chords have lower case i's and v's.
+
+		\subsubsection{An Example}
+		The song \emph{The Crane Wife Part III} by The Decemberists is a song 
+		in the key of D.  The flow of the song's chords is:  D, A, G, D, A, G, D, A, G.  
+		This is notated as:\\
+
+		\begin{center}
+		\emph{I - V - IV - I - V - IV - I - V - IV}
+		\end{center}
+
+		\subsubsection{Application}
+		The chord progression of a song will give a musician an idea of the general 
+		tones and harmonies in a specific piece of music, and the order they 
+		come in.  With this information and an idea of the melody, it is simply 
+		a matter of practice to learn and play a song.
+
+		Because this is such a powerful tool for describing a song, we hypothesize 
+		that the chord progression of a song can be used to accurately predict a 
+		song's genre of music.  Because of the linear nature of a chord progression, 
+		it makes it an ideal candidate for n-gram analysis.
   
 \newpage
 
 \section{N-grams}
 
+In the field of probability, an \emph{n-gram} is a sequence of $n$ terms. These can be
+words, syllables, numbers, or abstract symbols. An \emph{n-gram model} is a method
+for predicting the next item in a sequence as a \emph{(n-1)-order Markov model}. 
+
+For our system, the symbols are the chords. We are also not aiming to predict the
+next chord in a sequence (although that would make for an interesting concept in
+itself). Instead, we aim to find the probability for a given sequence to occur, given
+a particular genre. We can do this by providing training data for the model to reference.
+
+As for the actual model, we decided that the best way to represent the problem is
+that each genre would be its own model. Then given a sequence and training data,
+we could score that sequence for each model and compare results. 
+
+For a particular model, we build a table of \emph{bigrams} or 2-gram -- that is, we group
+a sequence into pairs. Chord progressions are commonly in groups of four, so it 
+seems intuitive to group them by fours. However,
+given the number of chord and quality combinations, it was impractical to gather
+enough data during the time of the project. Therefore, we chose bigrams for
+simplicity. In addition to the bigram, each n-gram has a \emph{context}, which
+is simply defined to be the first $n-1$ symbols in the sequence.
+
+An example of the table is shown in Figures \ref{tab:bigram} and \ref{tab:context}.
+
+	\begin{figure}[h]
+
+	\begin{center}
+		\begin{tabular}{l | l | l | l | l | l | l | l}
+•		bigram &	I-I 	& I-i	& I-II	& ...	& VM7-isus	& VM7-II	& ... \\ \hline
+		counts & 17	& 0	& 7	& ...	& 2			& 1		& ... \\
+		\end{tabular}•
+	\end{center}
+	\caption{The bigram table (numbers are not representative of actual data)}
+	\label{tab:bigram}
+
+	
+	\begin{center}
+		\begin{tabular}{l|l|l|l|l|l|l|l}
+•		context	&	I 	&	II	&	III	&	...	&	vi	&	vii	&	...	\\[0.3em] \hline
+		counts	&	78	&	97	&	103	&	...	&	43	&	29	&	...	\\
+		\end{tabular}•
+	\end{center}•
+	\caption{The table of contexts (numbers are not representative of actual data)}
+	\label{tab:context}
+	\end{figure}•
+
+To find the probability of a bigram occuring, we can simply take
+
+	\[
+	P(bigram) = \frac{\text{count of the bigram}}{\text{count of the context}}
+	\]
+
+To score a sequence such as \emph{I - V - IV - I - V - IV - I - V - IV}, we can calculate
+
+	\[
+	P(sequence) = P(I - V - IV) * P(V - IV - I) * P(IV - I - V) * P(I - V - IV) * ...
+	\]
+
+Problems can arise in the case that the count of the context never occured
+in the training data,
+as we will divide by zero. However, if the context hasn't been seen, then
+trivially the bigram hasn't either. So we treat the pair as if we trained the
+model with just the bigram. Therefore, the counts of both are simply 1.
+
+Further problems arise when a bigram hasn't been encountered, yet the 
+context has. This will cause the probably to become 0, and likewise the
+score of the entire sequence. To solve this, we implement a technique 
+known as \emph{LaPlace Add One} technique. It is rather simple -- we add
+1 to the count of every other bigram in the table. With enough data, this
+adds an insignificant amount to the scores of every other bigram,
+while avoiding a result of 0.
+
 \newpage
 
 \section{Program Design}
-The program has three major components:  A seralizeable n-gram class, a main controller class, and a bi-gram class.  It imports data from a text file for usage in the bigrams/
-\subsection{The Bi-gram}
-The bi-gram class is a simple container class that holds two strings, each representing a different chord symbol with a quality.
-\subsection{The N-gram}
-The n-gram class is a container class with logic for importing additional data into the set.  It holds a Map of integers, keyed to bi-grams.  When data is imported, it is imported as a series of chord symbols parsed from a file via regular expressions.  Bi-grams are generated from this string, counted, and added to the map.  When the program closes, each N-gram object is serialized and saved to a file, where it is reopened and loaded at the next start of the program.\\
-This class also contains the logic for finding the probability of a given series of chord symbols.  Missing symbols are handled via Laplace Add One.
-\subsection{The Controller}
-The controller handles the various user-interactions the program requires.  It provides logic and options for direction of inputs for data import, an interface for determining the genera of a song, and options for resetting the program's data.
+The program has three major components:  A seralizeable n-gram class,
+a main controller class, and a bi-gram class.  It imports data from a text 
+file for usage in the bigrams % Incomplete?
+
+	\subsection{The Bi-gram}
+	The bi-gram class is a simple container class that holds two strings, each 
+	representing a different chord symbol with a quality.
+
+
+		\subsection{The N-gram}
+		The n-gram class is a container class with logic for importing additional 
+		data into the set.  It holds a Map of integers, keyed to bi-grams.  When 
+		data is imported, it is imported as a series of chord symbols parsed 
+		from a file via regular expressions.  Bi-grams are generated from this 
+		string, counted, and added to the map.  When the program closes, each 
+		N-gram object is serialized and saved to a file, where it is reopened and 
+		loaded at the next start of the program.
+
+		This class also contains the logic for finding the probability of a given 
+		series of chord symbols.  Missing symbols are handled via Laplace Add One.
+
+	\subsection{The Controller}
+	The controller handles the various user-interactions the program requires.  
+	It provides logic and options for direction of inputs for data import, an 
+	interface for determining the genre of a song, and options for resetting 
+	the program's data.
 
 \newpage
 
 \section{Results}
 
+The system was trained by entering in a variety of different progressions,
+and determining the results. The outputs are as follows:
+
+\begin{itemize}
+\item \emph{I - IV - V - V} This is a very common progression often
+	found in classic rock. The model seems to agree. \\
+	\emph{Probability of being Classic is 97.52114319043453%} \\
+	\emph{Probability of being Indie is 2.4788568095654715%} \\
+\item \emph{vi - Vsus - IV - Vsus - I - Vsus}. This was an excerpt
+	from a progression for the Indie progression set. \\
+	\emph{Probability of being Classic is 99.04968775454792%} \\
+	\emph{Probability of being Indie is 0.9503122454520773%} \\
+	The result can be attributed to the fact that many of the
+	chord transitions were never seen in classic rock (as
+	sus chords in general are rare in the genre)
+\item \emph{V - IV - I - V}. Yet another excerpt from an Indie
+	song.
+	\emph{Probability of being Classic is 11.863083955847921% \\
+	Probability of being Indie is 88.13691604415207%} \\
+\item \emph{I - V - vii - vii}. This is a progression that is
+	neither Classic nor Indie rock, but is rather Alternative
+	rock.
+	\emph{Probability of being Classic is 64.02569593147753% \\
+	Probability of being Indie is 35.974304068522486%}
+\item \emph{vi - I - III - IV - V}. Taken from a bluegrass track. \\
+	\emph{Probability of being Classic is 86.02684395679195% \\
+	Probability of being Indie is 13.973156043208046%}
+\item \emph{i - III - VII - IV}. Taken from an Indie song not
+	included in the training set. \\
+	\emph{Probability of being Classic is 60.796139927623635% \\
+	Probability of being Indie is 39.20386007237636%}
+\item \emph{vi - I - IV - I}. Taken from a classic rock song
+	not included in the training set. \\
+	\emph{Probability of being Classic is 64.47975397232189% \\
+	Probability of being Indie is 35.52024602767811%}
+
 \newpage
 
 \section{Conclusion}
+
+% Results generally show classic rock beating out Indie. This is
+% primarily due to the fact that Indie rock artists use chords
+% and chord transitions typically not seen in Classic rock.
+% This causes the Laplace Add One to greatly favor Classic rock.
+% Can be alleviated by using absolute discounting, getting more
+% data, using some sort of composite scoring (i.e. introducing
+% other factors, etc.)
+
+% We should also mention something about challenges faced,
+% flaws with the system, possible future features, etc.
 
 \end{document}
